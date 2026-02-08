@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rafsun Hossnain — Founder, Troy Wash Express</title>
+    <meta name="description" content="Rafsun Hossnain — Founder & CEO of Troy Wash Express. Building Bangladesh's first automated car wash.">
+    
+    <!-- Fonts: Sora for headings, DM Sans for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===================== DESIGN TOKENS ===================== */
+        :root {
+            --bg-primary: #0A0D08;
+            --bg-card: #12160F;
+            --bg-card-hover: #181D14;
+            --text-primary: #F2EFE8;
+            --text-secondary: #AAA59B;
+            --text-muted: #6D6860;
+            --accent: #C8E64E;
+            --accent-soft: #9BBF2A;
+            --accent-glow: rgba(200, 230, 78, 0.10);
+            --accent-border: rgba(200, 230, 78, 0.12);
+            --border-subtle: rgba(255,255,255, 0.04);
+            --font-display: 'Sora', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --radius: 14px;
+            --radius-sm: 8px;
+        }
+
+        /* ===================== RESET ===================== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.65;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ===================== BACKGROUND EFFECTS ===================== */
+        .bg-grid {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background-image:
+                linear-gradient(rgba(200,230,78,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(200,230,78,0.025) 1px, transparent 1px);
+            background-size: 64px 64px;
+        }
+        .bg-orb {
+            position: fixed; z-index: 0; pointer-events: none; border-radius: 50%;
+            filter: blur(80px);
+        }
+        .bg-orb-1 {
+            top: -120px; right: -80px; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(200,230,78,0.07) 0%, transparent 70%);
+            animation: drift1 10s ease-in-out infinite;
+        }
+        .bg-orb-2 {
+            bottom: -100px; left: -100px; width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(200,230,78,0.04) 0%, transparent 70%);
+            animation: drift2 12s ease-in-out infinite;
+        }
+        @keyframes drift1 {
+            0%, 100% { transform: translate(0,0) scale(1); }
+            50% { transform: translate(-30px, 25px) scale(1.05); }
+        }
+        @keyframes drift2 {
+            0%, 100% { transform: translate(0,0); }
+            50% { transform: translate(20px, -20px); }
+        }
+
+        /* ===================== LAYOUT ===================== */
+        .page { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; padding: 56px 24px 80px; }
+
+        /* ===================== ANIMATIONS ===================== */
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .anim { animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .d1 { animation-delay: 0.05s; }
+        .d2 { animation-delay: 0.12s; }
+        .d3 { animation-delay: 0.20s; }
+        .d4 { animation-delay: 0.28s; }
+        .d5 { animation-delay: 0.36s; }
+        .d6 { animation-delay: 0.44s; }
+        .d7 { animation-delay: 0.52s; }
+        .d8 { animation-delay: 0.60s; }
+
+        /* ===================== HERO ===================== */
+        .hero { display: flex; gap: 28px; align-items: flex-start; margin-bottom: 48px; }
+
+        .hero-photo {
+            width: 96px; height: 96px; flex-shrink: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--bg-card) 60%, var(--accent-glow) 100%);
+            border: 2px solid var(--accent-border);
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .hero-photo img {
+            width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+        }
+        .hero-photo .initials {
+            font-family: var(--font-display);
+            font-size: 30px; font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 1px;
+            user-select: none;
+        }
+        .hero-photo::after {
+            content: ''; position: absolute; bottom: 4px; right: 4px;
+            width: 14px; height: 14px; border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg-primary);
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(200,230,78,0.35); }
+            50% { box-shadow: 0 0 0 6px rgba(200,230,78,0); }
+        }
+
+        .hero-text { flex: 1; }
+
+        .hero-label {
+            display: inline-block;
+            font-family: var(--font-display);
+            font-size: 10.5px; font-weight: 600;
+            letter-spacing: 2.5px; text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-glow);
+            border: 1px solid var(--accent-border);
+            padding: 5px 12px; border-radius: 4px;
+            margin-bottom: 14px;
+        }
+
+        .hero-name {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5.5vw, 2.8rem);
+            font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+        .hero-name .accent { color: var(--accent); }
+
+        .hero-bio {
+            font-size: 16px; color: var(--text-secondary); line-height: 1.72; max-width: 520px;
+        }
+        .hero-bio strong { color: var(--text-primary); font-weight: 500; }
+
+        /* ===================== STATS ===================== */
+        .stats {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1px; background: var(--border-subtle);
+            border-radius: var(--radius); overflow: hidden;
+            margin-bottom: 52px;
+        }
+        .stat {
+            background: var(--bg-card); padding: 22px 16px; text-align: center;
+            transition: background 0.3s;
+        }
+        .stat:hover { background: var(--bg-card-hover); }
+        .stat-num {
+            font-family: var(--font-display);
+            font-size: 26px; font-weight: 700; color: var(--accent); line-height: 1.2;
+        }
+        .stat-lbl {
+            font-size: 11px; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 1.2px; margin-top: 4px;
+        }
+
+        /* ===================== SECTION TITLE ===================== */
+        .section { margin-bottom: 44px; }
+        .sec-title {
+            font-family: var(--font-display);
+            font-size: 10.5px; font-weight: 600;
+            letter-spacing: 2.5px; text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 18px; padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        /* ===================== VENTURE CARD ===================== */
+        .venture {
+            background: var(--bg-card);
+            border: 1px solid var(--accent-border);
+            border-radius: var(--radius); padding: 26px;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+        .venture:hover { border-color: rgba(200,230,78,0.28); transform: translateY(-2px); }
+        .venture-name { font-family: var(--font-display); font-size: 19px; font-weight: 600; }
+        .venture-role { font-size: 13px; color: var(--accent-soft); font-weight: 500; margin: 3px 0 11px; }
+        .venture-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
+
+        /* ===================== HIGHLIGHT GRID ===================== */
+        .hl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .hl {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm); padding: 20px;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+        .hl:hover { border-color: var(--accent-border); transform: translateY(-2px); }
+        .hl-icon { font-size: 22px; margin-bottom: 8px; }
+        .hl-title { font-family: var(--font-display); font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+        .hl-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.55; }
+
+        /* ===================== EXPERIENCE LIST ===================== */
+        .exp { display: flex; justify-content: space-between; align-items: flex-start; padding: 15px 0; border-bottom: 1px solid var(--border-subtle); }
+        .exp:last-child { border-bottom: none; }
+        .exp-title { font-family: var(--font-display); font-size: 14.5px; font-weight: 500; }
+        .exp-org { font-size: 13.5px; color: var(--text-secondary); margin-top: 2px; }
+        .exp-date { font-size: 12.5px; color: var(--text-muted); white-space: nowrap; margin-left: 16px; flex-shrink: 0; }
+
+        /* ===================== SOCIAL / CONTACT LINKS ===================== */
+        .links { display: flex; flex-wrap: wrap; gap: 10px; }
+        .link {
+            display: inline-flex; align-items: center; gap: 9px;
+            font-family: var(--font-display); font-size: 13px; font-weight: 500;
+            color: var(--text-primary); text-decoration: none;
+            background: var(--bg-card); border: 1px solid var(--border-subtle);
+            padding: 11px 20px; border-radius: var(--radius-sm);
+            transition: all 0.25s ease;
+        }
+        .link:hover { background: var(--accent-glow); border-color: rgba(200,230,78,0.3); color: var(--accent); }
+        .link svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+
+        /* ===================== FOOTER ===================== */
+        .footer {
+            margin-top: 56px; padding-top: 20px;
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+        }
+        .footer p { font-size: 12.5px; color: var(--text-muted); }
+        .footer .loc { display: inline-flex; align-items: center; gap: 7px; }
+        .footer .dot {
+            width: 6px; height: 6px; background: var(--accent);
+            border-radius: 50%; animation: pulse 2.5s ease-in-out infinite;
+        }
+
+        /* ===================== RESPONSIVE ===================== */
+        @media (max-width: 600px) {
+            .page { padding: 36px 16px 60px; }
+            .hero { flex-direction: column; align-items: center; text-align: center; }
+            .hero-bio { max-width: 100%; }
+            .stats { grid-template-columns: 1fr; }
+            .hl-grid { grid-template-columns: 1fr; }
+            .exp { flex-direction: column; }
+            .exp-date { margin-left: 0; margin-top: 4px; }
+            .links { flex-direction: column; }
+            .link { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Background effects -->
+<div class="bg-grid"></div>
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+
+<div class="page">
+
+    <!-- ====== HERO ====== -->
+    <header class="hero anim d1">
+        <div class="hero-photo">
+            <!-- 
+                ===== HOW TO ADD YOUR PHOTO =====
+                1. Delete the line:   <span class="initials">RH</span>
+                2. Replace it with:   <img src="your-photo.jpg" alt="Rafsun Hossnain">
+                3. Put your photo file in the SAME folder as this index.html
+                4. Use a SQUARE photo (e.g. 400x400 pixels) for best results
+            -->
+            <span class="initials">RH</span>
+        </div>
+        <div class="hero-text">
+            <div class="hero-label">Founder &amp; CEO</div>
+            <h1 class="hero-name">Rafsun <span class="accent">Hossnain</span></h1>
+            <p class="hero-bio">
+                Building <strong>Troy Wash Express</strong> — Bangladesh's first automated car wash. 
+                A city of 23&nbsp;million people, 680,000+ cars, and <strong>zero</strong> automated car washes. 
+                I'm changing that.
+            </p>
+        </div>
+    </header>
+
+    <!-- ====== KEY NUMBERS ====== -->
+    <div class="stats anim d2">
+        <div class="stat">
+            <div class="stat-num">680K+</div>
+            <div class="stat-lbl">Target Vehicles</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">0</div>
+            <div class="stat-lbl">Automated Competitors</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">5 min</div>
+            <div class="stat-lbl">Per Wash</div>
+        </div>
+    </div>
+
+    <!-- ====== CURRENT VENTURE ====== -->
+    <div class="section anim d3">
+        <div class="sec-title">Current Venture</div>
+        <div class="venture">
+            <div class="venture-name">Troy Wash Express</div>
+            <div class="venture-role">Founder &amp; CEO · 2026 – Present</div>
+            <p class="venture-desc">
+                App-based automated car wash for Dhaka using German-engineered tunnel technology 
+                (Christ&nbsp;AG EVO&nbsp;STAR). Showroom-quality exterior wash in 5&nbsp;minutes — zero scratches, 
+                80%&nbsp;less water. Subscription-first model with unlimited monthly plans. 
+                Pre-launch with 20+ committed customers on waitlist.
+            </p>
+        </div>
+    </div>
+
+    <!-- ====== HIGHLIGHTS ====== -->
+    <div class="section anim d4">
+        <div class="sec-title">Highlights</div>
+        <div class="hl-grid">
+            <div class="hl">
+                <div class="hl-icon">🚀</div>
+                <div class="hl-title">NASA HERC 2025</div>
+                <div class="hl-desc">9th globally — Engineering &amp; Finance Team Lead</div>
+            </div>
+            <div class="hl">
+                <div class="hl-icon">🔬</div>
+                <div class="hl-title">Active Researcher</div>
+                <div class="hl-desc">Depression study under university professor supervision</div>
+            </div>
+            <div class="hl">
+                <div class="hl-icon">🏅</div>
+                <div class="hl-title">Greenwich Olympiad</div>
+                <div class="hl-desc">Silver Medal — International research paper</div>
+            </div>
+            <div class="hl">
+                <div class="hl-icon">🎓</div>
+                <div class="hl-title">Duke of Edinburgh Gold</div>
+                <div class="hl-desc">In progress — Design, Cycling, Charity Leadership</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== LEADERSHIP ====== -->
+    <div class="section anim d5">
+        <div class="sec-title">Leadership</div>
+        <div class="exp">
+            <div><div class="exp-title">President — Research Club</div><div class="exp-org">Founded from scratch · 300 applicants, 15 selected</div></div>
+            <div class="exp-date">2024 – Present</div>
+        </div>
+        <div class="exp">
+            <div><div class="exp-title">President — Cultural Club</div><div class="exp-org">Organized 3,000-person heritage event in 5 days</div></div>
+            <div class="exp-date">2024 – Present</div>
+        </div>
+        <div class="exp">
+            <div><div class="exp-title">BYLC Campus Ambassador</div><div class="exp-org">Bangladesh Youth Leadership Center — National Program</div></div>
+            <div class="exp-date">2025</div>
+        </div>
+        <div class="exp">
+            <div><div class="exp-title">VP — Hope Aid Club</div><div class="exp-org">Charity fundraising &amp; community service</div></div>
+            <div class="exp-date">2024 – Present</div>
+        </div>
+    </div>
+
+    <!-- ====== EDUCATION ====== -->
+    <div class="section anim d6">
+        <div class="sec-title">Education &amp; Experience</div>
+        <div class="exp">
+            <div><div class="exp-title">Cambridge A-Levels</div><div class="exp-org">IHSB — Physics, Mathematics, Chemistry</div></div>
+            <div class="exp-date">2025</div>
+        </div>
+        <div class="exp">
+            <div><div class="exp-title">Research Intern — Microbiology</div><div class="exp-org">Child Health Research Foundation</div></div>
+            <div class="exp-date">2024</div>
+        </div>
+        <div class="exp">
+            <div><div class="exp-title">Business Operations Intern</div><div class="exp-org">AVA Enterprises Ltd.</div></div>
+            <div class="exp-date">2024</div>
+        </div>
+    </div>
+
+    <!-- ====== COMMUNITY ====== -->
+    <div class="section anim d7">
+        <div class="sec-title">Community</div>
+        <div class="hl-grid">
+            <div class="hl">
+                <div class="hl-icon">📚</div>
+                <div class="hl-title">Free Village Library</div>
+                <div class="hl-desc">Built with personal savings for underserved readers</div>
+            </div>
+            <div class="hl">
+                <div class="hl-icon">🤝</div>
+                <div class="hl-title">Village Community Foundation</div>
+                <div class="hl-desc">Founded org for service projects &amp; community events</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== CONTACT ====== -->
+    <div class="section anim d8">
+        <div class="sec-title">Get in Touch</div>
+        <div class="links">
+
+            <!-- EMAIL — Replace rafsun@example.com with your real email -->
+            <a href="mailto:rafsun@example.com" class="link">
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                Email
+            </a>
+
+            <!-- LINKEDIN — Replace # with your LinkedIn URL (e.g. https://linkedin.com/in/rafsun-hossnain) -->
+            <a href="#" target="_blank" rel="noopener" class="link">
+                <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                LinkedIn
+            </a>
+
+            <!-- FACEBOOK — Replace # with your Facebook URL (e.g. https://facebook.com/rafsun.hossnain) -->
+            <a href="#" target="_blank" rel="noopener" class="link">
+                <svg viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.24.19 2.24.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 008.44-9.9c0-5.53-4.5-10.02-10-10.02z"/></svg>
+                Facebook
+            </a>
+
+            <!-- INSTAGRAM — Replace # with your Instagram URL (e.g. https://instagram.com/rafsun.troy) -->
+            <a href="#" target="_blank" rel="noopener" class="link">
+                <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5M12 7a5 5 0 110 10 5 5 0 010-10m0 2a3 3 0 100 6 3 3 0 000-6z"/></svg>
+                Instagram
+            </a>
+
+        </div>
+    </div>
+
+    <!-- ====== FOOTER ====== -->
+    <footer class="footer anim d8">
+        <p><span class="loc"><span class="dot"></span> Based in Dhaka, Bangladesh</span></p>
+        <p style="margin-top:6px;">&copy; 2026 Rafsun Hossnain</p>
+    </footer>
+
+</div>
+</body>
+</html>
